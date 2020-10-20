@@ -4,19 +4,20 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
-		EightPuzzle game = new EightPuzzle();
-		game.printStatus();
+		Movement movement = new Movement();
+		
+		GameBoard.printStatus();
 		System.out.println("\nCIMA");
-		game.moveUP();
-		game.printStatus();
+		movement.moveUP();
+		GameBoard.printStatus();
 		System.out.println("\nBAIXO");
-		game.moveDown();
-		game.printStatus();
+		movement.moveDown();
+		GameBoard.printStatus();
 		System.out.println("\nDIREITA");
-		game.moveRight();
-		game.printStatus();
+		movement.moveRight();
+		GameBoard.printStatus();
 		System.out.println("\nESQUERDA");
-		game.moveLeft();
-		game.printStatus();
+		movement.moveLeft();
+		GameBoard.printStatus();
 	}
 }
