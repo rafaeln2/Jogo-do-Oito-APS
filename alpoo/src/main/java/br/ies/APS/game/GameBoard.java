@@ -2,25 +2,29 @@ package br.ies.APS.game;
 
 import java.util.Random;
 
-public class GameBoard {
-	private static Integer[][] table = new Integer[][] { {1, 2, 3}, {4, 5, 6}, {7, 8, 0} };
-	private static Random random;
-	private static Integer axisYStart;
-	private static Integer axisXStart;
-	private static Integer axisYLimit;
-	private static Integer axisXLimit;
+import br.ies.APS.game.interfaces.Board;
+
+public class GameBoard implements Board {
+	private Integer[][] board;
+	private Random random;
+	private Integer axisYStart;
+	private Integer axisXStart;
+	private Integer axisYLimit;
+	private Integer axisXLimit;
 	
-	static {
-		axisXStart = 0;
-		axisYStart = 0;
-		axisXLimit = GameBoard.table.length;
-		axisYLimit = GameBoard.table.length;
+	public GameBoard(Integer[][] board) {
+		this.board = board;
+		
+		this.axisXStart = 0;
+		this.axisYStart = 0;
+		this.axisXLimit = this.board.length;
+		this.axisYLimit = this.board[0].length;
 	}
 	
-	public static Integer[] findSpaceCoordinates() {
+	public Integer[] findSpaceCoordinates() {
 		for(Integer line = 0; line < axisXLimit; line++) {
 			for(Integer column = 0; column < axisYLimit; column++) {
-				if(GameBoard.table[line][column] == 0) {
+				if(this.board[line][column] == 0) {
 					Integer[] coordinates = {line, column};
 					return coordinates;
 				}
@@ -29,53 +33,33 @@ public class GameBoard {
 		return null;
 	}
 
-	public static void printStatus() {
-		for(Integer line = 0; line < 3; line++) {
+	public void printStatus() {
+		for(Integer line = 0; line < this.axisXLimit; line++) {
 			System.out.print("|");
-			for(Integer column = 0; column < 3; column++) {
-				System.out.print(" "+ table[line][column]);
+			for(Integer column = 0; column < this.axisYLimit; column++) {
+				System.out.print(" "+ board[line][column]);
 			}
 			System.out.println(" |");
 		}
 	}
 	
-	public static Integer[][] getStatus() {
-		return GameBoard.table;
-	}
+	public Integer[][] getStateOfBoard() { return this.board; }
 	
-	public static Integer getAxisYLimit() {
-		return axisYLimit;
-	}
+	public Integer getAxisYLimit() { return axisYLimit; }
 	
-	public static Integer getAxisXLimit() {
-		return axisXLimit;
-	}
+	public Integer getAxisXLimit() { return axisXLimit; }
 
-	public static Integer getAxisYStart() {
-		return axisYStart;
-	}
+	public Integer getAxisYStart() { return axisYStart; }
 	
-	public static Integer getAxisXStart() {
-		return axisXStart;
-	}
+	public Integer getAxisXStart() { return axisXStart; }
 	
-	public static void setAxisYLimit(Integer axisYLimit) {
-		GameBoard.axisYLimit = axisYLimit;
-	}
+	public void setAxisYLimit(Integer axisYLimit) { this.axisYLimit = axisYLimit; }
 
-	public static void setAxisXLimit(Integer axisXLimit) {
-		GameBoard.axisXLimit = axisXLimit;
-	}
+	public void setAxisXLimit(Integer axisXLimit) { this.axisXLimit = axisXLimit; }
 
-	public static void setAxisYStart(Integer axisYStart) {
-		GameBoard.axisYStart = axisYStart;
-	}
+	public void setAxisYStart(Integer axisYStart) { this.axisYStart = axisYStart; }
 
-	public static void setAxisXStart(Integer axisXStart) {
-		GameBoard.axisXStart = axisXStart;
-	}
+	public void setAxisXStart(Integer axisXStart) { this.axisXStart = axisXStart; }
 
-	public static void setBoard(Integer[][] board) {
-		table = board;
-	}
+	public void setBoard(Integer[][] board) { this.board = board; }
 }
