@@ -1,30 +1,45 @@
 package br.ies.APS.game;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import br.ies.APS.game.interfaces.Board;
+import br.ies.APS.game.interfaces.Observable;
+import br.ies.APS.game.interfaces.Observer;
+import br.ies.APS.game.models.BoardSize;
 
-public class GameBoard implements Board {
-	private Integer[][] board;
+public class GameBoard implements Board, Observable {
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
+	private BoardSize board;
+	private Integer[][] stateOfBoard;
 	private Random random;
-	private Integer axisYStart;
-	private Integer axisXStart;
-	private Integer axisYLimit;
-	private Integer axisXLimit;
 	
-	public GameBoard(Integer[][] board) {
+	public GameBoard(BoardSize board) {
 		this.board = board;
-		
-		this.axisXStart = 0;
-		this.axisYStart = 0;
-		this.axisXLimit = this.board.length;
-		this.axisYLimit = this.board[0].length;
+		this.stateOfBoard = board.getModel();
+	}
+	
+	@Override
+	public void addObserver(Observer observer) {
+		this.observers.add(observer);
+	}
+
+	@Override
+	public void removeObserver(Observer observer) {
+		this.observers.remove(observer);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for(Observer observer: observers) {
+			observer.update(this.getStateOfBoard());
+		}
 	}
 	
 	public Integer[] findSpaceCoordinates() {
-		for(Integer line = 0; line < axisXLimit; line++) {
-			for(Integer column = 0; column < axisYLimit; column++) {
-				if(this.board[line][column] == 0) {
+		for(Integer line = 0; line < this.board.getAxisXLimit(); line++) {
+			for(Integer column = 0; column < this.board.getAxisYLimit(); column++) {
+				if(this.stateOfBoard[line][column] == 0) {
 					Integer[] coordinates = {line, column};
 					return coordinates;
 				}
@@ -34,32 +49,26 @@ public class GameBoard implements Board {
 	}
 
 	public void printStatus() {
-		for(Integer line = 0; line < this.axisXLimit; line++) {
+		for(Integer line = 0; line < this.board.getAxisXLimit(); line++) {
 			System.out.print("|");
-			for(Integer column = 0; column < this.axisYLimit; column++) {
-				System.out.print(" "+ board[line][column]);
+			for(Integer column = 0; column < this.board.getAxisYLimit(); column++) {
+				System.out.print(" "+ this.stateOfBoard[line][column]);
 			}
 			System.out.println(" |");
 		}
 	}
 	
-	public Integer[][] getStateOfBoard() { return this.board; }
+	public BoardSize getPropertiesOfBoard() {
+		return board;
+	}
 	
-	public Integer getAxisYLimit() { return axisYLimit; }
-	
-	public Integer getAxisXLimit() { return axisXLimit; }
+	public Integer[][] getStateOfBoard() {
+		return this.stateOfBoard;
+	}
 
-	public Integer getAxisYStart() { return axisYStart; }
-	
-	public Integer getAxisXStart() { return axisXStart; }
-	
-	public void setAxisYLimit(Integer axisYLimit) { this.axisYLimit = axisYLimit; }
-
-	public void setAxisXLimit(Integer axisXLimit) { this.axisXLimit = axisXLimit; }
-
-	public void setAxisYStart(Integer axisYStart) { this.axisYStart = axisYStart; }
-
-	public void setAxisXStart(Integer axisXStart) { this.axisXStart = axisXStart; }
-
-	public void setBoard(Integer[][] board) { this.board = board; }
+	public void setBoard(Integer[][] board) {
+		this.stateOfBoard = board;
+		
+		this.notifyObservers();
+	}
 }

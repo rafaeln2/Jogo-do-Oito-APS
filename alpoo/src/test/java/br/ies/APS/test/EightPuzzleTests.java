@@ -7,12 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import br.ies.APS.game.GameBoard;
 import br.ies.APS.game.Movement;
+import br.ies.APS.game.models.BoardSize;
 
 class EightPuzzleTests {
 	
 	@Test
 	void testIfMoveUPItsCorrectlyWorks() throws Exception {
-		GameBoard game = new GameBoard(new Integer[][] { {1, 2, 3}, {4, 5, 6}, {7, 8, 0} });
+		GameBoard game = new GameBoard(BoardSize.MEDIUM);
 		Movement movement = new Movement(game);
 		
 		Integer[][] tableMovedUP = new Integer[][] { {1, 2, 3}, {4, 5, 0}, {7, 8, 6} };
@@ -24,7 +25,7 @@ class EightPuzzleTests {
 	
 	@Test
 	void testIfMoveDownItsCorrectlyWorks() throws Exception {
-		GameBoard game = new GameBoard(new Integer[][] { {1, 2, 3}, {4, 5, 0}, {7, 8, 6} });
+		GameBoard game = new GameBoard(BoardSize.MEDIUM);
 		Movement movement = new Movement(game);
 		
 		Integer[][] tableMovedDown = new Integer[][] { {1, 2, 3}, {4, 5, 6}, {7, 8, 0} };
@@ -36,7 +37,7 @@ class EightPuzzleTests {
 	
 	@Test
 	void testIfMoveLeftItsCorrectlyWorks() throws Exception {
-		GameBoard game = new GameBoard(new Integer[][] { {1, 2, 3}, {4, 5, 6}, {7, 8, 0} });
+		GameBoard game = new GameBoard(BoardSize.MEDIUM);
 		Movement movement = new Movement(game);
 		
 		Integer[][] tableMovedLeft = new Integer[][] { {1, 2, 3}, {4, 5, 6}, {7, 0, 8} };
@@ -48,7 +49,7 @@ class EightPuzzleTests {
 	
 	@Test
 	void testIfMoveRightItsCorrectlyWorks() throws Exception {
-		GameBoard game = new GameBoard(new Integer[][] { {1, 2, 3}, {4, 5, 6}, {7, 0, 8} });
+		GameBoard game = new GameBoard(BoardSize.MEDIUM);
 		Movement movement = new Movement(game);
 		
 		Integer[][] tableMovedRight = new Integer[][] { {1, 2, 3}, {4, 5, 6}, {7, 8, 0} };

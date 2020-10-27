@@ -1,18 +1,11 @@
 package br.ies.APS.game.interfaces;
 
+import br.ies.APS.game.models.BoardSize;
+
 public interface Board {
 	public Integer[] findSpaceCoordinates();
 	public void printStatus();
-	
+	public BoardSize getPropertiesOfBoard();
 	public Integer[][] getStateOfBoard();
-	public Integer getAxisYLimit();
-	public Integer getAxisXLimit();
-	public Integer getAxisYStart();
-	public Integer getAxisXStart();
-	
-	public void setAxisYLimit(Integer axisYLimit);
-	public void setAxisXLimit(Integer axisXLimit);
-	public void setAxisYStart(Integer axisYStart);
-	public void setAxisXStart(Integer axisXStart);
 	public void setBoard(Integer[][] board);
 }

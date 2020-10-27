@@ -27,7 +27,7 @@ public class Movement implements Manipulator {
 		
 		Integer space = board[axisX][axisY];
 		
-		if(axisX > gameBoard.getAxisXStart()) {
+		if(axisX > gameBoard.getPropertiesOfBoard().getAxisXStart()) {
 			Integer swap = board[axisX - 1][axisY];
 			board[axisX - 1][axisY] = space;
 			board[axisX][axisY] = swap;
@@ -45,7 +45,7 @@ public class Movement implements Manipulator {
 		
 		Integer space = board[axisX][axisY];
 		
-		if(axisY < gameBoard.getAxisYLimit() - 1) {
+		if(axisY < gameBoard.getPropertiesOfBoard().getAxisYLimit() - 1) {
 			Integer swap = board[axisX][axisY + 1];
 			board[axisX][axisY + 1] = space;
 			board[axisX][axisY] = swap;
@@ -63,7 +63,7 @@ public class Movement implements Manipulator {
 		
 		Integer space = board[axisX][axisY];
 		
-		if(axisY > gameBoard.getAxisYStart()) {
+		if(axisY > gameBoard.getPropertiesOfBoard().getAxisYStart()) {
 			Integer swap = board[axisX][axisY - 1];
 			board[axisX][axisY - 1] = space;
 			board[axisX][axisY] = swap;
@@ -81,7 +81,7 @@ public class Movement implements Manipulator {
 		
 		Integer space = board[axisX][axisY];
 		
-		if(axisX < gameBoard.getAxisXLimit() - 1) {
+		if(axisX < gameBoard.getPropertiesOfBoard().getAxisXLimit() - 1) {
 			Integer swap = board[axisX + 1][axisY];
 			board[axisX + 1][axisY] = space;
 			board[axisX][axisY] = swap;
