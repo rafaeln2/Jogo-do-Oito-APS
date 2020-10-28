@@ -16,7 +16,13 @@ public class GameBoard implements Board, Observable {
 	
 	public GameBoard(BoardSize board) {
 		this.board = board;
-		this.stateOfBoard = board.getModel();
+		this.stateOfBoard = new Integer[board.getAxisXLimit()][board.getAxisYLimit()];
+		
+		for(Integer line = 0; line < board.getAxisXLimit(); line++) {
+			for(Integer column = 0; column < board.getAxisYLimit(); column++) {
+				this.stateOfBoard[line][column] = board.getModel()[line][column];
+			}
+		}
 	}
 	
 	@Override
