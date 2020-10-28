@@ -10,7 +10,6 @@ public class Main {
 		Movement movement = new Movement(gameBoard);
 		
 		VictoryCheck victoryCheck = new VictoryCheck();
-		gameBoard.addObserver(victoryCheck);
 		
 		gameBoard.printStatus();
 		System.out.println("\nCIMA");
