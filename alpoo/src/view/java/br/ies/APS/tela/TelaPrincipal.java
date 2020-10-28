@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.ies.APS.game.GameBoard;
 import br.ies.APS.game.Movement;
+import br.ies.APS.game.models.BoardSize;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -29,7 +30,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private GameBoard gameBoard = new GameBoard(new Integer[][] { { 1, 2, 3 }, { 4, 0, 6 }, { 7, 8, 9 } });
+	private GameBoard gameBoard = new GameBoard(BoardSize.MEDIUM);
 	private Movement movement = new Movement(gameBoard);
 	private JPanel contentPane;
 
