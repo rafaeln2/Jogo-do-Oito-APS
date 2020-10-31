@@ -1,44 +1,41 @@
 package br.ies.APS.game;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import br.ies.APS.game.interfaces.Board;
-import br.ies.APS.game.interfaces.Observable;
-import br.ies.APS.game.interfaces.Observer;
 import br.ies.APS.game.models.BoardSize;
 
-public class GameBoard implements Board, Observable {
-	private ArrayList<Observer> observers = new ArrayList<Observer>();
+public class GameBoard implements Board {
 	private BoardSize board;
 	private Integer[][] stateOfBoard;
-	private Random random;
+	private Viewer viewer;
 	
 	public GameBoard(BoardSize board) {
 		this.board = board;
 		this.stateOfBoard = new Integer[board.getAxisXLimit()][board.getAxisYLimit()];
+		this.viewer = new Viewer(this);
 		
 		for(Integer line = 0; line < board.getAxisXLimit(); line++) {
 			for(Integer column = 0; column < board.getAxisYLimit(); column++) {
 				this.stateOfBoard[line][column] = board.getModel()[line][column];
 			}
 		}
+		
+		this.shuffle();
 	}
 	
-	@Override
-	public void addObserver(Observer observer) {
-		this.observers.add(observer);
-	}
+	private void shuffle() {
+		
+		for(Integer[] line: this.stateOfBoard) {
+			Random random = new Random();
 
-	@Override
-	public void removeObserver(Observer observer) {
-		this.observers.remove(observer);
-	}
-
-	@Override
-	public void notifyObservers() {
-		for(Observer observer: observers) {
-			observer.update(this.getStateOfBoard());
+			for (int i = 0; i < line.length - 1; i++) {
+				int j = random.nextInt(this.stateOfBoard.length);
+				
+				int temp = line[i];
+				line[i] = line[j];
+				line[j] = temp;
+			}
 		}
 	}
 	
@@ -75,6 +72,6 @@ public class GameBoard implements Board, Observable {
 	public void setBoard(Integer[][] board) {
 		this.stateOfBoard = board;
 		
-		this.notifyObservers();
+		this.viewer.notifyObservers();
 	}
 }

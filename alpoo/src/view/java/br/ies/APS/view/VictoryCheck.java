@@ -1,4 +1,4 @@
-package br.ies.APS.game;
+package br.ies.APS.view;
 
 import java.util.Arrays;
 

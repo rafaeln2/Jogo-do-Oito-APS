@@ -1,6 +1,7 @@
 package br.ies.APS.game;
 
 import br.ies.APS.game.models.BoardSize;
+import br.ies.APS.game.models.Player;
 
 public class Main {
 	
@@ -9,7 +10,7 @@ public class Main {
 		GameBoard gameBoard = new GameBoard(BoardSize.MEDIUM);
 		Movement movement = new Movement(gameBoard);
 		
-		VictoryCheck victoryCheck = new VictoryCheck();
+		Player vitor = new Player("Vitor", gameBoard);
 		
 		gameBoard.printStatus();
 		System.out.println("\nCIMA");

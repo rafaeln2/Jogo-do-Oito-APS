@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 
 import br.ies.APS.game.GameBoard;
 import br.ies.APS.game.Movement;
-import br.ies.APS.game.VictoryCheck;
 import br.ies.APS.game.models.BoardSize;
 
 import javax.swing.JLabel;
@@ -55,7 +54,7 @@ public class TelaPrincipal extends JFrame {
 	 */
 	public TelaPrincipal() {
 		setResizable(false);
-		setTitle("Jogo do Oito");
+		setTitle("Eight Puzzle");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -121,9 +120,7 @@ public class TelaPrincipal extends JFrame {
 				movement.moveUP();
 				atualizarLabels();
 				
-				if(VictoryCheck.verify(gameBoard.getStateOfBoard())) {
-					JOptionPane.showMessageDialog(null, "Parabéns, você conseguiu!");
-				}
+				verifyVictory();
 			}
 		};
 
@@ -133,9 +130,7 @@ public class TelaPrincipal extends JFrame {
 				movement.moveLeft();
 				atualizarLabels();
 				
-				if(VictoryCheck.verify(gameBoard.getStateOfBoard())) {
-					JOptionPane.showMessageDialog(null, "Parabéns, você conseguiu!");
-				}
+				verifyVictory();
 			}
 		};
 
@@ -145,9 +140,7 @@ public class TelaPrincipal extends JFrame {
 				movement.moveDown();
 				atualizarLabels();
 				
-				if(VictoryCheck.verify(gameBoard.getStateOfBoard())) {
-					JOptionPane.showMessageDialog(null, "Parabéns, você conseguiu!");
-				}
+				verifyVictory();
 			}
 		};
 
@@ -157,9 +150,7 @@ public class TelaPrincipal extends JFrame {
 				movement.moveRight();
 				atualizarLabels();
 				
-				if(VictoryCheck.verify(gameBoard.getStateOfBoard())) {
-					JOptionPane.showMessageDialog(null, "Parabéns, você conseguiu!");
-				}
+				verifyVictory();
 			}
 		};
 
@@ -214,5 +205,11 @@ public class TelaPrincipal extends JFrame {
 		linha3coluna1.setText("" + gameBoard.getStateOfBoard()[2][0]);
 		linha3coluna2.setText("" + gameBoard.getStateOfBoard()[2][1]);
 		linha3coluna3.setText("" + gameBoard.getStateOfBoard()[2][2]);
+	}
+	
+	private void verifyVictory() {
+		if(VictoryCheck.verify(gameBoard.getStateOfBoard())) {
+			JOptionPane.showMessageDialog(null, "Parabéns, você conseguiu!");
+		}
 	}
 }
