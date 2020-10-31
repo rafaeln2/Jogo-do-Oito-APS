@@ -10,14 +10,6 @@ public class Movement implements Manipulator {
 		this.gameBoard = gameBoard; 
 	}
 	
-//	private boolean exceededLimit(Integer value) {
-//		System.out.println(value);
-//		if(value < this.gameBoard.getAxisXLimit() - 1 && value < this.gameBoard.getAxisXLimit() - 1 && value > 0) {
-//			return false;
-//		}
-//		return true;
-//	}
-	
 	public void moveUP() {
 		Integer[][] board = gameBoard.getStateOfBoard();
 		Integer[] spaceCoordinates = gameBoard.findSpaceCoordinates();
