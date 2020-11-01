@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import br.ies.APS.game.GameBoard;
 import br.ies.APS.game.Movement;
 import br.ies.APS.game.models.BoardSize;
+import br.ies.APS.game.models.Player;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private GameBoard gameBoard = new GameBoard(BoardSize.MEDIUM);
 	private Movement movement = new Movement(gameBoard);
+	private Player player;
 	private JPanel contentPane;
 	private JLabel linha1coluna1 = new JLabel("" + gameBoard.getStateOfBoard()[0][0]);
 	private JLabel linha1coluna2 = new JLabel("" + gameBoard.getStateOfBoard()[0][1]);
@@ -33,6 +35,7 @@ public class TelaPrincipal extends JFrame {
 	private JLabel linha3coluna1 = new JLabel("" + gameBoard.getStateOfBoard()[2][0]);
 	private JLabel linha3coluna2 = new JLabel("" + gameBoard.getStateOfBoard()[2][1]);
 	private JLabel linha3coluna3 = new JLabel("" + gameBoard.getStateOfBoard()[2][2]);
+
 	/**
 	 * Launch the application.
 	 */
@@ -61,54 +64,49 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		linha1coluna1.setBounds(9, 10, 258, 92);
 		linha1coluna1.setHorizontalAlignment(SwingConstants.CENTER);
 		linha1coluna1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		linha1coluna1.setBackground(getForeground());
 		contentPane.add(linha1coluna1);
-		
+
 		linha1coluna2.setBounds(267, 10, 258, 92);
 		linha1coluna2.setHorizontalAlignment(SwingConstants.CENTER);
 		linha1coluna2.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		contentPane.add(linha1coluna2);
-		
+
 		linha1coluna3.setBounds(525, 10, 258, 92);
 		linha1coluna3.setHorizontalAlignment(SwingConstants.CENTER);
 		linha1coluna3.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		contentPane.add(linha1coluna3);
-		
+
 		linha2coluna1.setBounds(9, 102, 258, 92);
 		linha2coluna1.setHorizontalAlignment(SwingConstants.CENTER);
 		linha2coluna1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		contentPane.add(linha2coluna1);
 
-		
 		linha2coluna2.setBounds(267, 102, 258, 92);
 		linha2coluna2.setForeground(Color.BLACK);
 		linha2coluna2.setHorizontalAlignment(SwingConstants.CENTER);
 		linha2coluna2.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		contentPane.add(linha2coluna2);
 
-		
 		linha2coluna3.setBounds(525, 102, 258, 92);
 		linha2coluna3.setHorizontalAlignment(SwingConstants.CENTER);
 		linha2coluna3.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		contentPane.add(linha2coluna3);
 
-		
 		linha3coluna1.setBounds(9, 194, 258, 92);
 		linha3coluna1.setHorizontalAlignment(SwingConstants.CENTER);
 		linha3coluna1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		contentPane.add(linha3coluna1);
 
-		
 		linha3coluna2.setBounds(267, 194, 258, 92);
 		linha3coluna2.setHorizontalAlignment(SwingConstants.CENTER);
 		linha3coluna2.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		contentPane.add(linha3coluna2);
 
-		
 		linha3coluna3.setBounds(525, 194, 258, 92);
 		linha3coluna3.setHorizontalAlignment(SwingConstants.CENTER);
 		linha3coluna3.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -119,7 +117,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				movement.moveUP();
 				atualizarLabels();
-				
+
 				verifyVictory();
 			}
 		};
@@ -129,7 +127,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				movement.moveLeft();
 				atualizarLabels();
-				
+
 				verifyVictory();
 			}
 		};
@@ -139,7 +137,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				movement.moveDown();
 				atualizarLabels();
-				
+
 				verifyVictory();
 			}
 		};
@@ -149,7 +147,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				movement.moveRight();
 				atualizarLabels();
-				
+
 				verifyVictory();
 			}
 		};
@@ -206,10 +204,14 @@ public class TelaPrincipal extends JFrame {
 		linha3coluna2.setText("" + gameBoard.getStateOfBoard()[2][1]);
 		linha3coluna3.setText("" + gameBoard.getStateOfBoard()[2][2]);
 	}
-	
+
 	private void verifyVictory() {
-		if(VictoryCheck.verify(gameBoard.getStateOfBoard())) {
+		if (VictoryCheck.verify(gameBoard.getStateOfBoard())) {
 			JOptionPane.showMessageDialog(null, "Parabéns, você conseguiu!");
 		}
+	}
+
+	public void setPlayer(String nome) {
+		this.player = new Player(nome, gameBoard);
 	}
 }
