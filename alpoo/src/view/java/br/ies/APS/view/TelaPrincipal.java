@@ -10,6 +10,11 @@ import javax.swing.border.EmptyBorder;
 
 import br.ies.APS.game.GameBoard;
 import br.ies.APS.game.Movement;
+import br.ies.APS.game.Viewer;
+import br.ies.APS.game.DAO.ManageDatabase;
+import br.ies.APS.game.DAO.PlayerDAO;
+import br.ies.APS.game.DAO.PlaysDAO;
+import br.ies.APS.game.DAO.WinnersDAO;
 import br.ies.APS.game.models.BoardSize;
 import br.ies.APS.game.models.Player;
 
@@ -22,9 +27,10 @@ import java.awt.Color;
 
 public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private Player player;
+	private Viewer viewer = new Viewer();
 	private GameBoard gameBoard = new GameBoard(BoardSize.MEDIUM);
 	private Movement movement = new Movement(gameBoard);
-	private Player player;
 	private JPanel contentPane;
 	private JLabel linha1coluna1 = new JLabel("" + gameBoard.getStateOfBoard()[0][0]);
 	private JLabel linha1coluna2 = new JLabel("" + gameBoard.getStateOfBoard()[0][1]);
@@ -43,7 +49,7 @@ public class TelaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaPrincipal frame = new TelaPrincipal();
+					TelaPrincipal frame = new TelaPrincipal("some");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +61,11 @@ public class TelaPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaPrincipal() {
+	public TelaPrincipal(String player) {
+		this.player = new Player(player);
+		this.gameBoard.setPlayer(this.player);
+		this.gameBoard.setViewer(this.viewer);
+		
 		setResizable(false);
 		setTitle("Eight Puzzle");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -191,6 +201,10 @@ public class TelaPrincipal extends JFrame {
 		JLabel label_4 = new JLabel("");
 		label_4.setBounds(525, 470, 258, 92);
 		contentPane.add(label_4);
+		
+		setupViewer();
+		savePlayer();
+		savePlay();
 	}
 
 	private void atualizarLabels() {
@@ -207,11 +221,26 @@ public class TelaPrincipal extends JFrame {
 
 	private void verifyVictory() {
 		if (VictoryCheck.verify(gameBoard.getStateOfBoard())) {
+			WinnersDAO winners = new WinnersDAO();
+			winners.insert(this.player.getName());
 			JOptionPane.showMessageDialog(null, "Parabéns, você conseguiu!");
 		}
 	}
 
-	public void setPlayer(String nome) {
-		this.player = new Player(nome, gameBoard);
+	private void savePlayer() {
+		PlayerDAO playerDAO = new PlayerDAO();
+		playerDAO.insert(this.player.getName());
+	}
+	
+	private void savePlay() {
+		PlaysDAO playsDAO = new PlaysDAO();
+		playsDAO.insert(this.gameBoard);
+	}
+	
+	private void setupViewer() {
+		this.viewer.setBoard(this.gameBoard);
+		
+		ManageDatabase manageDB = new ManageDatabase();
+		this.viewer.addObserver(manageDB);
 	}
 }

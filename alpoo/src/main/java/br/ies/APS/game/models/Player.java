@@ -1,13 +1,26 @@
 package br.ies.APS.game.models;
 
-import br.ies.APS.game.GameBoard;
-
 public class Player {
+	Integer id;
 	String name;
-	GameBoard board;
 	
-	public Player(String name, GameBoard board) {
+	public Player(String name) {
 		this.name = name;
-		this.board = board;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

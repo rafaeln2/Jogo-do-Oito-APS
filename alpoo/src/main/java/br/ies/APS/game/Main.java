@@ -7,10 +7,13 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
+		Player vitor = new Player("Vitor");
+		Viewer viewer = new Viewer();
 		GameBoard gameBoard = new GameBoard(BoardSize.MEDIUM);
-		Movement movement = new Movement(gameBoard);
+		gameBoard.setViewer(viewer);
+		gameBoard.setPlayer(vitor);
 		
-		Player vitor = new Player("Vitor", gameBoard);
+		Movement movement = new Movement(gameBoard);
 		
 		gameBoard.printStatus();
 		System.out.println("\nCIMA");

@@ -3,17 +3,19 @@ package br.ies.APS.game;
 import java.util.Random;
 
 import br.ies.APS.game.interfaces.Board;
+import br.ies.APS.game.interfaces.Observable;
 import br.ies.APS.game.models.BoardSize;
+import br.ies.APS.game.models.Player;
 
 public class GameBoard implements Board {
 	private BoardSize board;
 	private Integer[][] stateOfBoard;
-	private Viewer viewer;
+	private Observable viewer;
+	private Player player;
 	
 	public GameBoard(BoardSize board) {
 		this.board = board;
 		this.stateOfBoard = new Integer[board.getAxisXLimit()][board.getAxisYLimit()];
-		this.viewer = new Viewer(this);
 		
 		for(Integer line = 0; line < board.getAxisXLimit(); line++) {
 			for(Integer column = 0; column < board.getAxisYLimit(); column++) {
@@ -21,11 +23,10 @@ public class GameBoard implements Board {
 			}
 		}
 		
-		this.shuffle();
+//		this.shuffle();
 	}
 	
 	private void shuffle() {
-		
 		for(Integer[] line: this.stateOfBoard) {
 			Random random = new Random();
 
@@ -73,5 +74,18 @@ public class GameBoard implements Board {
 		this.stateOfBoard = board;
 		
 		this.viewer.notifyObservers();
+	}
+
+	@Override
+	public Player getPlayer() {
+		return this.player;
+	}
+	
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
+	public void setViewer(Observable viewer) {
+		this.viewer = viewer;
 	}
 }

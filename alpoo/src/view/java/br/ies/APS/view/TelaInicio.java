@@ -64,12 +64,11 @@ public class TelaInicio extends JFrame {
 
 		campoNome = new JTextField();
 		campoNome.setColumns(10);
-
+		
 		ActionListener btnIniciarJogoPressionado = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TelaPrincipal tela = new TelaPrincipal();
-				tela.setPlayer(campoNome.getText());
+				TelaPrincipal tela = new TelaPrincipal(campoNome.getText());
 				tela.setVisible(true);
 				dispose();
 			}
@@ -105,5 +104,4 @@ public class TelaInicio extends JFrame {
 						.addContainerGap(60, Short.MAX_VALUE)));
 		painel.setLayout(gl_contentPane);
 	}
-
 }

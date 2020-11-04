@@ -10,7 +10,7 @@ public class Viewer implements Observable {
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	private Board gameBoard;
 	
-	public Viewer(Board gameBoard) {
+	public void setBoard(Board gameBoard) {
 		this.gameBoard = gameBoard;
 	}
 
@@ -27,7 +27,7 @@ public class Viewer implements Observable {
 	@Override
 	public void notifyObservers() {
 		for(Observer observer: observers) {
-			observer.update(this.gameBoard.getStateOfBoard());
+			observer.update(this.gameBoard);
 		}
 	}
 }
