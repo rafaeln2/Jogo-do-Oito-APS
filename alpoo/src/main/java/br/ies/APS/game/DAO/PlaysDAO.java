@@ -79,5 +79,22 @@ public class PlaysDAO implements DAO {
 		
 		return null;
 	}
-
+	
+	public Integer getTotalPlays(String playerName) {
+		int id = PlayerDAO.getPlayerID(playerName);
+		String select = "SELECT COUNT(cd_player) FROM PLAYS WHERE cd_player = "+ id +";";
+		ConnectionDatabase connection = new ConnectionDatabase();
+		ResultSet resultSet = connection.consult(select);
+		
+		try {
+			if(resultSet.next()) {
+				
+				return resultSet.getInt("count");
+			}
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		return null;
+	}
 }

@@ -23,7 +23,7 @@ public class GameBoard implements Board {
 			}
 		}
 		
-//		this.shuffle();
+		this.shuffle();
 	}
 	
 	private void shuffle() {

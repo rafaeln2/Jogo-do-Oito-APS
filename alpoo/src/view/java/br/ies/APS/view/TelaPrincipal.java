@@ -222,8 +222,9 @@ public class TelaPrincipal extends JFrame {
 	private void verifyVictory() {
 		if (VictoryCheck.verify(gameBoard.getStateOfBoard())) {
 			WinnersDAO winners = new WinnersDAO();
+			PlaysDAO playsDAO = new PlaysDAO();
 			winners.insert(this.player.getName());
-			JOptionPane.showMessageDialog(null, "Parabéns, você conseguiu!");
+			JOptionPane.showMessageDialog(null, "Parabéns, você conseguiu com "+ (playsDAO.getTotalPlays(this.player.getName()) - 1) +" jogadas!");
 		}
 	}
 
